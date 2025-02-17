@@ -1,6 +1,9 @@
 package generate
 
 import (
+	"fmt"
+
+	"github.com/gookit/color"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/tools/goctl/api/parser"
 	"github.com/zeromicro/go-zero/tools/goctl/plugin"
@@ -21,5 +24,6 @@ func UniAppCommand(p *plugin.Plugin) error {
 	logx.Must(genMessages(p.Dir, api))
 	logx.Must(genClient(p.Dir, api))
 
+	fmt.Println(color.Green.Render("Done."))
 	return nil
 }

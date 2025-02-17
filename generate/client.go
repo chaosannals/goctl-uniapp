@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/samber/lo"
 	"github.com/zeromicro/go-zero/tools/goctl/api/spec"
 	"github.com/zeromicro/goctl-uniapp/template"
-	"github.com/zeromicro/goctl-uniapp/util"
 )
 
 func genClient(dir string, api *spec.ApiSpec) error {
@@ -19,7 +19,7 @@ func genClient(dir string, api *spec.ApiSpec) error {
 }
 
 func writeClient(dir string, api *spec.ApiSpec) error {
-	name := util.CamelCase(api.Service.Name, true)
+	name := lo.PascalCase(api.Service.Name)
 
 	data := template.UniAppApiClientTemplateData{
 		ClientName:       name,
@@ -32,11 +32,11 @@ func writeClient(dir string, api *spec.ApiSpec) error {
 	// 组
 	for _, g := range api.Service.Groups {
 		prefix := g.GetAnnotation("prefix")
-		p := util.CamelCase(prefix, true)
+		p := lo.PascalCase(prefix)
 
 		// 路由
 		for _, r := range g.Routes {
-			an := util.CamelCase(r.Path, true)
+			an := lo.PascalCase(r.Path)
 			method := strings.ToLower(r.Method)
 
 			route := template.UniAppApiClientRouteTemplateData{
@@ -59,7 +59,7 @@ func writeClient(dir string, api *spec.ApiSpec) error {
 				data.ResponseTypes = append(data.ResponseTypes, rn)
 				for _, tagKey := range tagKeys {
 					if hasTagMembers(r.ResponseType, tagKey) {
-						sn := util.CamelCase(fmt.Sprintf("%s-%s", rn, tagToSubName(tagKey)), true)
+						sn := lo.PascalCase(fmt.Sprintf("%s-%s", rn, tagToSubName(tagKey)))
 						data.ResponseSubTypes[rn] = append(data.ResponseSubTypes[rn], sn)
 					}
 				}
@@ -71,11 +71,11 @@ func writeClient(dir string, api *spec.ApiSpec) error {
 
 			if r.ResponseType != nil {
 				if hasTagMembers(r.ResponseType, bodyTagKey) {
-					sn := util.CamelCase(fmt.Sprintf("%s-%s", r.ResponseType.Name(), tagToSubName(bodyTagKey)), true)
+					sn := lo.PascalCase(fmt.Sprintf("%s-%s", r.ResponseType.Name(), tagToSubName(bodyTagKey)))
 					route.ResponseBodyType = &sn
 				}
 				if hasTagMembers(r.ResponseType, headerTagKey) {
-					sn := util.CamelCase(fmt.Sprintf("%s-%s", r.ResponseType.Name(), tagToSubName(headerTagKey)), true)
+					sn := lo.PascalCase(fmt.Sprintf("%s-%s", r.ResponseType.Name(), tagToSubName(headerTagKey)))
 					route.ResponseHeadersType = &sn
 				}
 			}

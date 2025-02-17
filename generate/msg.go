@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/samber/lo"
 	"github.com/zeromicro/go-zero/tools/goctl/api/spec"
 	"github.com/zeromicro/goctl-uniapp/template"
 	"github.com/zeromicro/goctl-uniapp/util"
@@ -34,7 +35,7 @@ func tagToSubName(tagKey string) string {
 
 func getMessageName(tn string, tagKey string) string {
 	suffix := tagToSubName(tagKey)
-	return util.CamelCase(fmt.Sprintf("%s-%s", tn, suffix), true)
+	return lo.PascalCase(fmt.Sprintf("%s-%s", tn, suffix))
 }
 
 func hasTagMembers(t spec.Type, tagKey string) bool {
@@ -55,7 +56,7 @@ func genMessages(dir string, api *spec.ApiSpec) error {
 		}
 
 		// 主类型
-		rn := util.CamelCase(tn, true)
+		rn := lo.PascalCase(tn)
 		data := template.UniAppApiMessageTemplateData{
 			MessageName: rn,
 			SubMessages: []template.UniAppApiSubMessageTemplateData{},

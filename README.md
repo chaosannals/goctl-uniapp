@@ -1,8 +1,7 @@
 # goctl-uniapp
 
 ![go-zero](https://img.shields.io/badge/Github-go--zero-brightgreen?link=https://github.com/zeromicro/go-zero&logo=github)
-![License](https://img.shields.io/badge/License-MIT-blue?link=https://github.com/zeromicro/goctl-android/blob/main/LICENSE)
-![Go](https://github.com/zeromicro/goctl-android/workflows/Go/badge.svg)
+![License](https://img.shields.io/badge/License-MIT-blue?link=https://github.com/zeromicro/goctl-uniapp/blob/main/LICENSE)
 
 goctl-uniapp 是一款基于 goctl 的插件，用于生成 uniapp 使用的 http 客户端。
 
